@@ -1,0 +1,8 @@
+import { NavLink, Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { Menu, X, MessageCircle } from 'lucide-react'
+import {useState}from'react'
+import {server}from'../config/server'
+export function Navbar(){const[open,setOpen]=useState(false);return <header><nav><Link className="brand" to="/"><i>✦</i>FORGE</Link><button className="menu" onClick={()=>setOpen(!open)} aria-label="Open navigation">{open?<X/>:<Menu/>}</button><div className={'nav-links '+(open?'show':'')}>{[['/','Home'],['/ranks','Ranks'],['/wiki','Forge Wiki'],['/updates','Updates'],['/feedback','Feedback']].map(([to,label])=><NavLink key={to} to={to} onClick={()=>setOpen(false)}>{label}</NavLink>)}<a className="discord" href={server.discord} target="_blank" rel="noreferrer"><MessageCircle size={15}/>Discord</a></div></nav></header>}
+export function Footer(){return <footer><div><Link className="brand" to="/"><i>✦</i>FORGE</Link><p>{server.ip}</p></div><div><Link to="/ranks">Ranks</Link><Link to="/wiki">Wiki</Link><Link to="/updates">Updates</Link><a href={server.discord}>Discord</a></div><small>© 2026 FORGE MC · NOT AFFILIATED WITH MOJANG OR MICROSOFT</small></footer>}
+export const Page=({children})=><motion.main className="page-transition" initial={{opacity:0,scale:.985,filter:'blur(9px)'}} animate={{opacity:1,scale:1,filter:'blur(0px)'}} exit={{opacity:0,scale:1.015,filter:'blur(9px)'}} transition={{duration:.42,ease:[.16,1,.3,1]}}><motion.i className="route-rune" initial={{opacity:.85,scale:.25,rotate:-90}} animate={{opacity:0,scale:2.6,rotate:140}} transition={{duration:.72,ease:'easeOut'}} aria-hidden="true">✦</motion.i>{children}</motion.main>
